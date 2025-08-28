@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Innovative Portfolio</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet"/>
+<!-- Animate.css -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<!-- Custom CSS -->
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #121212;
+    color: #f0f0f0;
+    line-height: 1.6;
+    transition: background-color 0.5s, color 0.5s;
+    scroll-behavior: smooth;
+  }
+
+  body.light {
+    background-color: #f0f0f0;
+    color: #121212;
+  }
+
+  /* Header with animated SVG background */
+  header {
+    position: relative;
+    padding: 60px 20px;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  header h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+    z-index: 2;
+    position: relative;
+  }
+
+  header p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    z-index: 2;
+    position: relative;
+  }
+
+  /* SVG Background for header waves */
+  .header-svg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+  }
+
+  /* Toggle Button for Light/Dark Mode */
+  .mode-toggle {
+    position: absolute;
+    top: 20px; right: 20px;
+    background: transparent;
+    border: 2px solid #fff;
+    border-radius: 50px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-weight: 700;
+    z-index: 3;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  body.light .mode-toggle {
+    border-color: #121212;
+    color: #121212;
+  }
+
+  body.light .mode-toggle:hover {
+    background: #ddd;
+  }
+
+  /* Navigation */
+  nav {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 20px;
+    background: rgba(0,0,0,0.2);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  nav a {
+    color: inherit;
+    text-decoration: none;
+    font-weight: 700;
+    padding: 8px 16px;
+    border-radius: 5px;
+    transition: background 0.3s;
+  }
+
+  nav a:hover {
+    background: rgba(255,255,255,0.2);
+  }
+
+  /* Sections styling */
+section {
+  padding: 60px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h2.section-title {
+  font-size: 2.5em;
+  margin-bottom: 40px;
+  text-align: center;
+  position: relative;
+}
+
+h2.section-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: #ff7e5f;
+  margin: 10px auto 0 auto;
+  border-radius: 2px;
+}
+
+/* About Section */
+#about {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 40px;
+  position: relative;
+}
+
+#about img {
+  flex: 1 1 300px;
+  max-width: 300px;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  transition: transform 0.3s, filter 0.3s;
+  cursor: pointer;
+}
+#about img:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+#about .content {
+  flex: 2 1 500px;
+}
+#about h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+#about p {
+  font-size: 1.2em;
+}
+
+/* Projects Section with animated hover overlay */
+#projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+.project-card {
+  position: relative;
+  background: rgba(255,255,255,0.05);
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.project-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+}
+.project-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+.project-info {
+  padding: 15px;
+}
+.project-info h3 {
+  margin-bottom: 10px;
+  font-size: 1.5em;
+}
+.project-info p {
+  font-size: 1em;
+}
+
+/* Overlay on project hover for more info */
+.project-overlay {
+  position: absolute;
+  top:0; left:0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+  padding: 20px;
+  text-align: center;
+}
+.project-card:hover .project-overlay {
+  opacity: 1;
+}
+
+/* Contact Section */
+#contact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#contact h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+form {
+  background: rgba(255,255,255,0.1);
+  padding: 30px;
+  border-radius: 20px;
+  max-width: 500px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+input, textarea {
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1em;
+}
+button {
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  background: #ff7e5f;
+  color: #fff;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+button:hover {
+  background: #eb6750;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 30px 20px;
+  background: rgba(0,0,0,0.2);
+  font-size: 0.9em;
+}
+
+/* Floating Circles background with CSS variables for variation */
+.circles {
+  position: absolute;
+  top: 0; left:0;
+  width: 100%; height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.2;
+  background: rgba(255,255,255,0.3);
+  animation: float 25s linear infinite;
+}
+@keyframes float {
+  0% {
+    transform: translateY(100%) scale(0.5);
+  }
+  100% {
+    transform: translateY(-100%) scale(1);
+  }
+}
+
+/* Responsive adjustments */
+@media(max-width:768px){
+  #about {
+    flex-direction: column;
+  }
+}
+
+/* Animate elements on scroll */
+.animate {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.animate.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+</head>
+<body>
+
+<!-- SVG animated waves in header -->
+<header>
+  <svg class="header-svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+    <path fill="#ff7e5f" fill-opacity="0.3" d="M0,192L48,181.3C96,171,192,149,288,138.7C384,128,480,128,576,138.7C672,149,768,171,864,186.7C960,203,1056,213,1152,202.7C1248,192,1344,160,1392,144L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+  </svg>
+  <button class="mode-toggle" id="modeToggle">🌙</button>
+  <h1 class="animate__animated animate__fadeInDown">RAJAPRAGADEESWARI</h1>
+  <p class="animate__animated animate__fadeInUp"> Developer & Designer</p>
+</header>
+
+<!-- Circles background -->
+<div class="circles"></div>
+
+<!-- Navigation -->
+<nav>
+  <a href="#about">About</a>
+  <a href="#projects">Projects</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<!-- About -->
+<section id="about" class="animate">
+  <img src="..//portfolio/im.jpg" alt="Your Photo" />
+  <div class="content">
+    <h2>Hi, I'm Rajapragadeeswari</h2>
+    <p>Creative developer & designer passionate about building innovative digital experiences. Skilled in web development, UI/UX design, and branding. Always eager to learn and explore new technologies.</p>
+  </div>
+</section>
+
+<!-- Projects -->
+<section id="projects" class="animate">
+  <h2 class="section-title">My Projects</h2>
+  <div style="display:flex; flex-wrap:wrap; gap:20px; justify-content:center;">
+    <!-- Project Card 1 -->
+    <div class="project-card" onclick="alert('eCommerce platform dedicated to showcasing and selling unique handmade products. Designed to highlight artisans')">
+      <img src="webpage1.jpg" class="project-img"/>
+      <div class="project-info">
+        <h3>Project One</h3>
+        <p>HANDMADE CRAFT WEBSITE</p>
+      </div>
+      <div class="project-overlay">
+        <div>
+          <h3>Project One</h3>
+          <p>click for details</p>
+</p>
+        </div>
+      </div>
+    </div>
+    <!-- Project Card 2 -->
+    <div class="project-card" onclick="alert('A modern, responsive website crafted to showcase the restaurant’s menu, ambiance, and services. Includes features such as online reservations, menu browsing, and contact information, providing visitors with a seamless and inviting experience. Reflects my skills in web design, UI/UX, and development tailored for the hospitality industry.')">
+      <img src="..//portfolio/webpage3.jpg" class="project-img"/>
+      <div class="project-info">
+        <h3>Project Two</h3>
+        <p>RESTAURENT WEBSITE</p>
+      </div>
+      <div class="project-overlay">
+        <div>
+          <h3>Project Two</h3>
+          <p>click for details</p>
+        </div>
+      </div>
+    </div>
+    <!-- Project Card 3 -->
+    <div class="project-card" onclick="alert(' AI-powered chatbot designed to enhance customer engagement and streamline business operations. Built with natural language processing, it provides instant support, answers queries, and improves user experience. Demonstrates my expertise in AI development and chatbot integration for business solutions.')">
+      <img src="..//portfolio/webpage2.jpg" class="project-img"/>
+      <div class="project-info">
+        <h3>Project Three</h3>
+        <p>AI CHATBOT FOR BUSINESS</p>
+      </div>
+      <div class="project-overlay">
+        <div>
+          <h3>Project Three</h3>
+          <p>click for details</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="animate">
+  <h2 class="section-title">Get in Touch</h2>
+  <form onsubmit="event.preventDefault(); alert('Thank you for reaching out!');">
+    <input type="text" placeholder="Your Name" required />
+    <input type="email" placeholder="Your Email" required />
+    <textarea rows="5" placeholder="Your Message" required></textarea>
+    <button type="submit">Send Message</button>
+  </form>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>&copy; 2024 Your Name. All rights reserved.</p>
+</footer>
+
+<!-- Scripts for interactivity -->
+<script>
+  // Generate animated floating circles
+  const circlesContainer = document.querySelector('.circles');
+  for(let i=0; i<30; i++){
+    const circle = document.createElement('div');
+    circle.className = 'circle';
+    const size = Math.random()*50 + 20;
+    circle.style.width = `${size}px`;
+    circle.style.height = `${size}px`;
+    circle.style.left = `${Math.random()*100}%`;
+    circle.style.top = '100%';
+    circle.style.animationDelay = `${Math.random()*20}s`;
+    circle.style.backgroundColor = `rgba(255,255,255,${Math.random()*0.2 + 0.1})`;
+    circlesContainer.appendChild(circle);
+  }
+
+  // Animate on scroll
+  const animateEls = document.querySelectorAll('.animate');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('in-view');
+      }
+    });
+  }, {threshold: 0.1});
+  animateEls.forEach(el => observer.observe(el));
+
+  // Light/Dark Mode toggle
+  const modeBtn = document.getElementById('modeToggle');
+  modeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('light');
+    if(document.body.classList.contains('light')){
+      modeBtn.textContent = '☀️';
+    } else {
+      modeBtn.textContent = '🌙';
+    }
+  });
+</script>
+</body>
+</html>
